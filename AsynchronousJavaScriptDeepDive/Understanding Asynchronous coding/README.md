@@ -63,4 +63,4 @@ Second
 
 Third gets printed before Second, because of the asynchronous execution of the code. Here setTimeout() function waits for 2 seconds, and in the meantime, the next instruction gets executed without waiting for the previous one to complete the execution.
 
-[NEXT TOPIC -> Call stack](/call_stack.md)
+[NEXT TOPIC -> Call stack](/AsynchronousJavaScriptDeepDive/Understanding%20Asynchronous%20coding/call_stack.md)
