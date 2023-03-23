@@ -8,10 +8,10 @@ Hi! Here I'm going to share some knowledge I've been acquiring in Asynchronous J
 ##   syllabus
 
 
-|     Topic      |Link                         |
-|----------------|-----------------------------|
-|Synchrony vs Asynchrony|[Comming soon](https://github.com/stivendiaz/carrier-path-stiven-diaz)          |
-|Callbacks |[Comming soon](/AsynchronousJavaScriptDeepDive/)|
-|Promises |[Comming soon](/AsynchronousJavaScriptDeepDive/)|
-|Async Await |[Comming soon](/AsynchronousJavaScriptDeepDive/)|
-|Generators |[Comming soon](/AsynchronousJavaScriptDeepDive/)|
+| Topic                             | Link                                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------- |
+| Understanding Asynchronous coding | [Here](/AsynchronousJavaScriptDeepDive/Understanding Asynchronous coding) |
+| Callbacks                         | [Comming soon](/AsynchronousJavaScriptDeepDive/)                                  |
+| Promises                          | [Comming soon](/AsynchronousJavaScriptDeepDive/)                                  |
+| Async Await                       | [Comming soon](/AsynchronousJavaScriptDeepDive/)                                  |
+| Generators                        | [Comming soon](/AsynchronousJavaScriptDeepDive/)                                  |

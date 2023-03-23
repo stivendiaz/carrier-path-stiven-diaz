@@ -13,4 +13,4 @@ Here I'm going to post my progress in the different courses I'd took
 |     Title           |Source                          |Link                         |
 |----------------|-------------------------------|-----------------------------|
 |You Don’t Know JS Yet|Book           |[Comming soon](https://github.com/stivendiaz/carrier-path-stiven-diaz)          |
-|Asynchronous JavaScript Deep Dive    |Video tutorial           |[Comming soon](/AsynchronousJavaScriptDeepDive/)|
+|Asynchronous JavaScript Deep Dive    |Video tutorial           |[Here](/AsynchronousJavaScriptDeepDive/)|
