@@ -9,15 +9,26 @@ A callback function is one that is passed as an argument to another function to 
 
 Short example:
 
-```
-function crearCita(cita, callback){ 
-  var miCita = "Como yo siempre digo, " + cita;
-  callback(miCita); // 2
+```Js
+function createQuote(quote, callback){ 
+  var myQuote = "As I always say " + quote;
+  callback(myQuote); // 2
 }
 
-function logCita(cita){
-  console.log(cita);
+function logQuote(quote){
+  console.log(quote);
 }
 
-crearCita("come tus vegetales!", logCita); // 1
+createQuote("eat your vegetables!", logQuote); // 1
 ```
+
+[Try here](https://codesandbox.io/s/carrier-path-callback-example-1jksoz?file=/src/index.js:139-219)
+
+
+Exercises:
+
+- [Callback example 1](/AsynchronousJavaScriptDeepDive/Callbacks/Exercises/Callback1/)
+- [Callback example 2](/AsynchronousJavaScriptDeepDive/Callbacks/Exercises/Callback2/)
+- [Exercise 0](/AsynchronousJavaScriptDeepDive/Callbacks/Exercises/Exercise0/)
+- [Problems](/AsynchronousJavaScriptDeepDive/Callbacks/Exercises/Problems/)
+

@@ -65,4 +65,6 @@ Behavior:
 
 > f1() finishes executing and comes out of the stack. Right after that f2() finishes, and finally f3().
 
+[Try it](https://codesandbox.io/s/carrier-path-callstack2-hu1mb9)
+
 [NEXT TOPIC -> Event Loop](/event_loop)

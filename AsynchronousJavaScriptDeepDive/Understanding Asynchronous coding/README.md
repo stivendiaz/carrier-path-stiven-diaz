@@ -20,7 +20,7 @@ So... How a single-threaded language can be an asynchronous language at the same
 ### Code example:
 
 Input:
-```
+```Js
 console.log('First');
 console.log('Second');
 console.log('Third');
@@ -44,7 +44,7 @@ Every instruction runs once after the previous instruction gets executed.
 
 ### Code example:
 Input:
-```
+```Js
 
 console.log('First');
 
