@@ -10,7 +10,7 @@ Hi! Here I'm going to share some knowledge I've been acquiring in Javascript Cen
 Here I'm going to post my progress in the different courses I'd took
 
 
-| Title                             | Source         | Link                                                                  |
-| --------------------------------- | -------------- | --------------------------------------------------------------------- |
-| You Don’t Know JS Yet             | Book           | [Coming soon](https://github.com/stivendiaz/carrier-path-stiven-diaz) |
-| Asynchronous JavaScript Deep Dive | Video tutorial | [Here](/AsynchronousJavaScriptDeepDive/)                              |
+| Title                             | Source         | Link                                     |
+| --------------------------------- | -------------- | ---------------------------------------- |
+| You Don’t Know JS Yet             | Book           | [Here](/YDKJY/) |
+| Asynchronous JavaScript Deep Dive | Video tutorial | [Here](/AsynchronousJavaScriptDeepDive/) |
