@@ -2,11 +2,7 @@
 
 Hi! Here I'm going to share some knowledge I've been acquiring in You don't know JavaScript yet book
 
-
-
-
-##   syllabus
-
+## syllabus
 
 | Topic                                 | Link                       |
 | ------------------------------------- | -------------------------- |
