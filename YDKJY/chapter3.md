@@ -27,11 +27,11 @@ Closures are found throughout JS. So much so that they can be considered fundame
 
 Some characteristics of closure include:
 
--   It's part of the nature of a function
--   Only functions can get closure
--   The function must be executed in a different scope than where it originates from for closure to be observed.
+- It's part of the nature of a function
+- Only functions can get closure
+- The function must be executed in a different scope than where it originates from for closure to be observed.
 
- ```
+```js
 function outerFunction() {
   var outerVariable = "Hello ";
 
@@ -47,11 +47,9 @@ var myFunction = outerFunction();
 myFunction("John"); // Output: Hello John world
 ```
 
+### _this_ keyword
 
-### _this_  keyword
-
-The  _this_  keyword means different things depending on the context that it is used. When used inside a function,  _this_  exposes the function's execution context. Which refers to an actual object whose properties are available to a function while it executes. The value of  _this_  always changes depending on how the function is called. This is the biggest advocate for using  _this_. It allows you to have the ability to reuse functions with data from different objects.
-
+The _this_ keyword means different things depending on the context that it is used. When used inside a function, _this_ exposes the function's execution context. Which refers to an actual object whose properties are available to a function while it executes. The value of _this_ always changes depending on how the function is called. This is the biggest advocate for using _this_. It allows you to have the ability to reuse functions with data from different objects.
 
 ```
 const person = {
@@ -63,7 +61,7 @@ const person = {
 function personSaysHi() {
   return `Hi ${this.name}, nice to meet you`;
 }
-``` 
+```
 
 ### Prototypes
 
