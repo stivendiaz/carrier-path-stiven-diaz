@@ -1,6 +1,6 @@
 # Vue.js
 
-# Introduction: The good things
+## Introduction: The good things
 
 Vue.js is a progressive JavaScript framework for building user interfaces. It was developed by Evan You and has gained significant popularity in recent years. Vue.js is designed to be approachable, flexible, and efficient, making it an excellent choice for both small-scale projects and large-scale applications.
 
@@ -22,7 +22,7 @@ aspects of Vue.js:
 
 8. **Large Ecosystem**: Vue.js has a vibrant ecosystem with a wide range of libraries, tools, and plugins. This makes it easy to extend Vue.js functionality or integrate it with other frameworks and libraries.
 
-# Quick start:
+## Quick start:
 
 Step 1: Set up a Development Environment
 Before getting started with Vue.js, you need to set up a development environment. Make sure you have Node.js installed on your machine, as it includes npm (Node Package Manager) which we'll use to install Vue.js.
@@ -66,58 +66,30 @@ After the project is created, navigate to the project directory using the follow
 > npm run dev
 ```
 
-## Template Syntax
+# Template Syntax
 
 Vue uses an HTML-based template syntax that allows you to declaratively bind the rendered DOM to the underlying component instance's data. All Vue templates are syntactically valid HTML that can be parsed by spec-compliant browsers and HTML parsers.
 
-### Text Interpolation
-
-The most basic form of data binding is text interpolation using the "Mustache" syntax (double curly braces):
-
-template
+## Text Interpolation
 
 ```html
 <span>Message: {{ msg }}</span>
 ```
 
-The mustache tag will be replaced with the value of the `msg` property [from the corresponding component instance](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state). It will also be updated whenever the `msg` property changes.
-
-### Raw HTML
-
-The double mustaches interpret the data as plain text, not HTML. In order to output real HTML, you will need to use the [`v-html` directive](https://vuejs.org/api/built-in-directives.html#v-html):
-
-template
+## Raw HTML
 
 ```html
 <p>Using text interpolation: {{ rawHtml }}</p>
 <p>Using v-html directive: <span v-html="rawHtml"></span></p>
 ```
 
-Using text interpolation: <span style="color: red">This should be red.</span>
-
-Using v-html directive: This should be red.
-
-Here we're encountering something new. The `v-html` attribute you're seeing is called a **directive**. Directives are prefixed with `v-` to indicate that they are special attributes provided by Vue, and as you may have guessed, they apply special reactive behavior to the rendered DOM. Here, we're basically saying "keep this element's inner HTML up-to-date with the `rawHtml` property on the current active instance."
-
-The contents of the `span` will be replaced with the value of the `rawHtml` property, interpreted as plain HTML - data bindings are ignored. Note that you cannot use `v-html` to compose template partials, because Vue is not a string-based templating engine. Instead, components are preferred as the fundamental unit for UI reuse and composition.
-
-### Attribute Bindings
-
-Mustaches cannot be used inside HTML attributes. Instead, use a [`v-bind` directive](https://vuejs.org/api/built-in-directives.html#v-bind):
-
-template
+## Attribute Bindings
 
 ```html
 <div v-bind:id="dynamicId"></div>
 ```
 
-The `v-bind` directive instructs Vue to keep the element's `id` attribute in sync with the component's `dynamicId` property. If the bound value is `null` or `undefined`, then the attribute will be removed from the rendered element.
-
-#### Shorthand
-
-Because `v-bind` is so commonly used, it has a dedicated shorthand syntax:
-
-template
+### Shorthand
 
 ```html
 <div :id="dynamicId"></div>
@@ -127,23 +99,13 @@ Attributes that start with `:` may look a bit different from normal HTML, but it
 
 > The shorthand syntax is the most common usage for Vue developers.
 
-#### Boolean Attributes
-
-[Boolean attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes) are attributes that can indicate true / false values by their presence on an element. For example, [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled) is one of the most commonly used boolean attributes.
-
-`v-bind` works a bit differently in this case:
-
-template
+### Boolean Attributes
 
 ```html
 <button :disabled="isButtonDisabled">Button</button>
 ```
 
-The `disabled` attribute will be included if `isButtonDisabled` has a [truthy value](https://developer.mozilla.org/en-US/docs/Glossary/Truthy). It will also be included if the value is an empty string, maintaining consistency with `<button disabled="">`. For other [falsy values](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) the attribute will be omitted.
-
-#### Dynamically Binding Multiple Attributes[​](https://vuejs.org/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)
-
-If you have a JavaScript object representing multiple attributes that looks like this:
+### Dynamically Binding Multiple Attributes
 
 ```js
 const objectOfAttrs = {
@@ -154,17 +116,11 @@ const objectOfAttrs = {
 
 You can bind them to a single element by using `v-bind` without an argument:
 
-template
-
 ```html
 <div v-bind="objectOfAttrs"></div>
 ```
 
-### Using JavaScript Expressions
-
-So far we've only been binding to simple property keys in our templates. But Vue actually supports the full power of JavaScript expressions inside all data bindings:
-
-template
+## Using JavaScript Expressions
 
 ```javascript
 {{ number + 1 }}
@@ -176,20 +132,7 @@ template
 <div :id="`list-${id}`"></div>
 ```
 
-These expressions will be evaluated as JavaScript in the data scope of the current component instance.
-
-In Vue templates, JavaScript expressions can be used in the following positions:
-
-- Inside text interpolations (mustaches)
-- In the attribute value of any Vue directives (special attributes that start with `v-`)
-
-#### Expressions Only
-
-Each binding can only contain **one single expression**. An expression is a piece of code that can be evaluated to a value. A simple check is whether it can be used after `return`.
-
-Therefore, the following will **NOT** work:
-
-template
+### Expressions Only
 
 ```
 <!-- this is a statement, not an expression: -->
@@ -199,11 +142,9 @@ template
 {{ if (ok) { return message } }}
 ```
 
-#### Calling Functions[​](https://vuejs.org/guide/essentials/template-syntax.html#calling-functions)
+### Calling Functions
 
 It is possible to call a component-exposed method inside a binding expression:
-
-template
 
 ```html
 <time :title="toTitleDate(date)" :datetime="date">
@@ -211,23 +152,17 @@ template
 </time>
 ```
 
-TIP
-
-Functions called inside binding expressions will be called every time the component updates, so they should **not** have any side effects, such as changing data or triggering asynchronous operations.
-
-#### Restricted Globals Access
+### Restricted Globals Access
 
 Template expressions are sandboxed and only have access to a [restricted list of globals](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3). The list exposes commonly used built-in globals such as `Math` and `Date`.
 
 Globals not explicitly included in the list, for example user-attached properties on `window`, will not be accessible in template expressions. You can, however, explicitly define additional globals for all Vue expressions by adding them to [`app.config.globalProperties`](https://vuejs.org/api/application.html#app-config-globalproperties).
 
-### Directives
+## Directives
 
 Directives are special attributes with the `v-` prefix. Vue provides a number of [built-in directives](https://vuejs.org/api/built-in-directives.html), including `v-html` and `v-bind` which we have introduced above.
 
 Directive attribute values are expected to be single JavaScript expressions (with the exception of `v-for`, `v-on` and `v-slot`, which will be discussed in their respective sections later). A directive's job is to reactively apply updates to the DOM when the value of its expression changes. Take [`v-if`](https://vuejs.org/api/built-in-directives.html#v-if) as an example:
-
-template
 
 ```html
 <p v-if="seen">Now you see me</p>
@@ -235,11 +170,9 @@ template
 
 Here, the `v-if` directive would remove / insert the `<p>` element based on the truthiness of the value of the expression `seen`.
 
-#### Arguments
+### Arguments
 
 Some directives can take an "argument", denoted by a colon after the directive name. For example, the `v-bind` directive is used to reactively update an HTML attribute:
-
-template
 
 ```html
 <a v-bind:href="url"> ... </a>
@@ -252,8 +185,6 @@ Here, `href` is the argument, which tells the `v-bind` directive to bind the ele
 
 Another example is the `v-on` directive, which listens to DOM events:
 
-template
-
 ```html
 <a v-on:click="doSomething"> ... </a>
 
@@ -263,11 +194,7 @@ template
 
 Here, the argument is the event name to listen to: `click`. `v-on` has a corresponding shorthand, namely the `@` character. We will talk about event handling in more detail too.
 
-#### Dynamic Arguments
-
-It is also possible to use a JavaScript expression in a directive argument by wrapping it with square brackets:
-
-template
+### Dynamic Arguments
 
 ```html
 <!--
@@ -280,11 +207,7 @@ as explained in the "Dynamic Argument Value Constraints" and "Dynamic Argument S
 <a :[attributeName]="url"> ... </a>
 ```
 
-Here, `attributeName` will be dynamically evaluated as a JavaScript expression, and its evaluated value will be used as the final value for the argument. For example, if your component instance has a data property, `attributeName`, whose value is `"href"`, then this binding will be equivalent to `v-bind:href`.
-
 Similarly, you can use dynamic arguments to bind a handler to a dynamic event name:
-
-template
 
 ```html
 <a v-on:[eventName]="doSomething"> ... </a>
@@ -295,13 +218,13 @@ template
 
 In this example, when `eventName`'s value is `"focus"`, `v-on:[eventName]` will be equivalent to `v-on:focus`.
 
-##### Dynamic Argument Value Constraints
+#### Dynamic Argument Value Constraints
 
 Dynamic arguments are expected to evaluate to a string, with the exception of `null`. The special value `null` can be used to explicitly remove the binding. Any other non-string value will trigger a warning.
 
-##### Dynamic Argument Syntax Constraints
+#### Dynamic Argument Syntax Constraints
 
-Dynamic argument expressions have some syntax constraints because certain characters, such as spaces and quotes, are invalid inside HTML attribute names. For example, the following is invalid:
+The following is invalid:
 
 ```html
 <!-- This will trigger a compiler warning. -->
@@ -310,15 +233,13 @@ Dynamic argument expressions have some syntax constraints because certain charac
 
 If you need to pass a complex dynamic argument, it's probably better to use a [computed property](https://vuejs.org/guide/essentials/computed.html), which we will cover shortly.
 
-When using in-DOM templates (templates directly written in an HTML file), you should also avoid naming keys with uppercase characters, as browsers will coerce attribute names into lowercase:
-
 ```html
 <a :[someAttr]="value"> ... </a>
 ```
 
 The above will be converted to `:[someattr]` in in-DOM templates. If your component has a `someAttr` property instead of `someattr`, your code won't work. Templates inside Single-File Components are **not** subject to this constraint.
 
-#### Modifiers
+### Modifiers
 
 Modifiers are special postfixes denoted by a dot, which indicate that a directive should be bound in some special way. For example, the `.prevent` modifier tells the `v-on` directive to call `event.preventDefault()` on the triggered event:
 
@@ -441,8 +362,6 @@ Manually exposing state and methods via `setup()` can be verbose. Luckily, it ca
 
 Top-level imports, variables and functions declared in `<script setup>` are automatically usable in the template of the same component. Think of the template as a JavaScript function declared in the same scope - it naturally has access to everything declared alongside it.
 
-### Why Refs?
-
 You might be wondering why we need refs with the `.value` instead of plain variables. To explain that, we will need to briefly discuss how Vue's reactivity system works.
 
 When you use a ref in the template, and changes the ref's value later, Vue automatically detects the change and updates the DOM accordingly. This is made possible with a dependency-tracking based reactivity system. When a component is rendered for the first time, Vue **tracks** every ref that was used during the render. Later on, when a ref is mutated, it will **trigger** re-render for components that are tracking it.
@@ -491,13 +410,7 @@ function mutateDeeply() {
 }
 ```
 
-Non-primitive values are turned into reactive proxies via [`reactive()`](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#reactive), which is discussed below.
-
-It is also possible to opt-out of deep reactivity with [shallow refs](https://vuejs.org/api/reactivity-advanced.html#shallowref). For shallow refs, only `.value` access is tracked for reactivity. Shallow refs can be used for optimizing performance by avoiding the observation cost of large objects, or in cases where the inner state is managed by an external library.
-
 ### DOM Update Timing
-
-When you mutate reactive state, the DOM is updated automatically. However, it should be noted that the DOM updates are not applied synchronously. Instead, Vue buffers them until the "next tick" in the update cycle to ensure that each component updates only once no matter how many state changes you have made.
 
 To wait for the DOM update to complete after a state change, you can use the [nextTick()](https://vuejs.org/api/general.html#nexttick) global API:
 
@@ -521,17 +434,9 @@ import { reactive } from "vue";
 const state = reactive({ count: 0 });
 ```
 
-> See also: [Typing Reactive](https://vuejs.org/guide/typescript/composition-api.html#typing-reactive)
-
-Usage in template:
-
 ```html
 <button @click="state.count++">{{ state.count }}</button>
 ```
-
-Reactive objects are [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and behave just like normal objects. The difference is that Vue is able to intercept the access and mutation of all properties of a reactive object for reactivity tracking and triggering.
-
-`reactive()` converts the object deeply: nested objects are also wrapped with `reactive()` when accessed. It is also called by `ref()` internally when the ref value is an object. Similar to shallow refs, there is also the [`shallowReactive()`](https://vuejs.org/api/reactivity-advanced.html#shallowreactive) API for opting-out of deep reactivity.
 
 ### Reactive Proxy vs. Original
 
@@ -695,8 +600,6 @@ Now the render result will be `2`.
 
 Another thing to note is that a ref does get unwrapped if it is the final evaluated value of a text interpolation (i.e. a `{{ }}` tag), so the following will render `1`:
 
-template
-
 ```
 {{ object.id }}
 ```
@@ -716,8 +619,6 @@ The directive `v-if` is used to conditionally render a block. The block will onl
 ## `v-else`
 
 You can use the `v-else` directive to indicate an "else block" for `v-if`:
-
-template
 
 ```html
 <button @click="awesome = !awesome">Toggle</button>
@@ -757,8 +658,6 @@ Because `v-if` is a directive, it has to be attached to a single element. But wh
 
 Another option for conditionally displaying an element is the `v-show` directive. The usage is largely the same:
 
-template
-
 ```html
 <h1 v-show="ok">Hello!</h1>
 ```
@@ -782,3 +681,39 @@ Generally speaking, `v-if` has higher toggle costs while `v-show` has higher ini
 It's **not** recommended to use `v-if` and `v-for` on the same element due to implicit precedence.
 
 When `v-if` and `v-for` are both used on the same element, `v-if` will be evaluated first. See the [list rendering guide](https://vuejs.org/guide/essentials/list.html#v-for-with-v-if) for details.
+
+# Lifecycle Hooks
+
+## Registering Lifecycle Hooks
+
+For example, the `onMounted` hook can be used to run code after the component has finished the initial rendering and created the DOM nodes:
+
+```vue
+<script setup>
+import { onMounted } from "vue";
+
+onMounted(() => {
+  console.log(`the component is now mounted.`);
+});
+</script>
+```
+
+There are also other hooks which will be called at different stages of the instance's lifecycle, with the most commonly used being [`onMounted`](https://vuejs.org/api/composition-api-lifecycle.html#onmounted), [`onUpdated`](https://vuejs.org/api/composition-api-lifecycle.html#onupdated), and [`onUnmounted`](https://vuejs.org/api/composition-api-lifecycle.html#onunmounted).
+
+When calling `onMounted`, Vue automatically associates the registered callback function with the current active component instance. This requires these hooks to be registered **synchronously** during component setup. For example, do not do this:
+
+```js
+setTimeout(() => {
+  onMounted(() => {
+    // this won't work.
+  });
+}, 100);
+```
+
+Do note this doesn't mean that the call must be placed lexically inside `setup()` or `<script setup>`. `onMounted()` can be called in an external function as long as the call stack is synchronous and originates from within `setup()`.
+
+## Lifecycle Diagram
+
+Below is a diagram for the instance lifecycle. You don't need to fully understand everything going on right now, but as you learn and build more, it will be a useful reference.
+
+![Component lifecycle diagram](https://vuejs.org/assets/lifecycle.16e4c08e.png)
