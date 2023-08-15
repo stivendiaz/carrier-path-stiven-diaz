@@ -833,3 +833,577 @@ When you're ready to deploy your app, build it using:
 ```bash
 npm run build
 ```
+
+## Next.js Fundamentals
+
+### 1. Routing and Navigation in Next.js:
+
+Next.js provides built-in routing and navigation capabilities using the `Link` component.
+
+```jsx
+// pages/index.js
+import Link from "next/link";
+
+function Home() {
+  return (
+    <div>
+      <h1>Welcome to Next.js!</h1>
+      <Link href="/about">Go to About</Link>
+    </div>
+  );
+}
+
+export default Home;
+```
+
+```jsx
+// pages/about.js
+import Link from "next/link";
+
+function About() {
+  return (
+    <div>
+      <h1>About Us</h1>
+      <p>This is the about page.</p>
+      <Link href="/">Go back to Home</Link>
+    </div>
+  );
+}
+
+export default About;
+```
+
+### 2. Dynamic Routes and Query Parameters:
+
+Next.js allows you to create dynamic routes by using square brackets `[]`.
+
+For example, a blog could include the following route pages/blog/[id].js where [slug] is the Dynamic Segment for blog posts.
+
+```jsx
+// pages/post/[id].js
+import { useRouter } from "next/router";
+
+function Post() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  return (
+    <div>
+      <h1>Post {id}</h1>
+    </div>
+  );
+}
+
+export default Post;
+```
+
+### 3. Linking Between Pages:
+
+The `Link` component in Next.js makes it easy to create links between pages.
+
+```jsx
+import Link from "next/link";
+
+function Navigation() {
+  return (
+    <nav>
+      <Link href="/">Home</Link>
+      <Link href="/about">About</Link>
+      <Link href="/contact">Contact</Link>
+    </nav>
+  );
+}
+```
+
+### 4. Using Layouts and Shared Components:
+
+You can create a layout and share components across pages by creating a custom `_app.js` file.
+
+```jsx
+// pages/_app.js
+import Layout from "../components/Layout";
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
+}
+
+export default MyApp;
+```
+
+### 5. Styling and CSS-in-JS with Next.js:
+
+Next.js supports various CSS-in-JS libraries for styling, such as styled-components and emotion.
+
+```jsx
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  background-color: lightblue;
+  padding: 1rem;
+`;
+
+function StyledComponent() {
+  return <StyledDiv>This is a styled component.</StyledDiv>;
+}
+
+export default StyledComponent;
+```
+
+### 6. Managing Assets and Images:
+
+Next.js makes it easy to manage assets and images. Place your assets in the `public` directory.
+
+```jsx
+function ImageComponent() {
+  return (
+    <div>
+      <img src="/logo.png" alt="Next.js Logo" />
+    </div>
+  );
+}
+
+export default ImageComponent;
+```
+
+## Server-Side Rendering (SSR) in Next.js
+
+### 1. Introduction to Server-Side Rendering:
+
+Server-side rendering (SSR) involves rendering React components on the server before sending them to the client.
+
+```jsx
+// pages/ssr.js
+import React from "react";
+
+function SSRPage({ serverRenderedData }) {
+  return (
+    <div>
+      <h1>Server-Side Rendering Example</h1>
+      <p>Server-rendered data: {serverRenderedData}</p>
+    </div>
+  );
+}
+
+export async function getServerSideProps() {
+  // Simulate fetching data from an API or database
+  const serverRenderedData = "Data fetched on the server";
+
+  return {
+    props: {
+      serverRenderedData,
+    },
+  };
+}
+
+export default SSRPage;
+```
+
+### 2. `getServerSideProps`: Fetching Data on the Server:
+
+The `getServerSideProps` function fetches data on the server before rendering the component.
+
+```jsx
+// pages/post/[id].js
+import { useRouter } from "next/router";
+
+function Post({ post }) {
+  return (
+    <div>
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
+    </div>
+  );
+}
+
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${id}`
+  );
+  const post = await response.json();
+
+  return {
+    props: {
+      post,
+    },
+  };
+}
+
+export default Post;
+```
+
+### 3. `getStaticProps`: Pre-rendering Static Pages:
+
+`getStaticProps` pre-renders static pages at build time.
+
+```jsx
+// pages/index.js
+function Home({ posts }) {
+  return (
+    <div>
+      <h1>Latest Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export async function getStaticProps() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await response.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default Home;
+```
+
+### 4. Incremental Static Generation (ISG):
+
+Next.js supports Incremental Static Generation (ISG), allowing you to re-generate static pages at runtime.
+
+```jsx
+// pages/greeting.js
+function Greeting({ message }) {
+  return (
+    <div>
+      <h1>Greeting</h1>
+      <p>{message}</p>
+    </div>
+  );
+}
+
+export async function getStaticProps() {
+  const response = await fetch("https://api.example.com/random-greeting");
+  const { message } = await response.json();
+
+  return {
+    props: {
+      message,
+    },
+    revalidate: 10, // Regenerate page every 10 seconds
+  };
+}
+
+export default Greeting;
+```
+
+## Routing and Navigation in Next.js
+
+### 1. Creating Nested Routes:
+
+Nested routes allow you to create a hierarchical structure of pages.
+
+```jsx
+// pages/blog/index.js
+import Link from "next/link";
+
+function Blog() {
+  return (
+    <div>
+      <h1>Blog</h1>
+      <ul>
+        <li>
+          <Link href="/blog/post-1">Post 1</Link>
+        </li>
+        <li>
+          <Link href="/blog/post-2">Post 2</Link>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+export default Blog;
+```
+
+```jsx
+// pages/blog/post-1.js
+function Post1() {
+  return (
+    <div>
+      <h1>Post 1</h1>
+      <p>This is the content of Post 1.</p>
+    </div>
+  );
+}
+export default Post1;
+```
+
+### 2. Working with Dynamic Routes:
+
+Dynamic routes allow you to create pages based on route parameters.
+
+```jsx
+// pages/blog/[slug].js
+import { useRouter } from "next/router";
+
+function BlogPost() {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  return (
+    <div>
+      <h1>Blog Post: {slug}</h1>
+      {/* Render post content */}
+    </div>
+  );
+}
+
+export default BlogPost;
+```
+
+### 3. Customizing Route Behavior:
+
+You can customize route behavior using the `router` object and hooks.
+
+```jsx
+// pages/about.js
+import { useRouter } from "next/router";
+
+function About() {
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    // Redirect to a different page
+    router.push("/");
+  };
+
+  return (
+    <div>
+      <h1>About Us</h1>
+      <button onClick={handleRedirect}>Go to Home</button>
+    </div>
+  );
+}
+
+export default About;
+```
+
+### 4. Handling Route Transitions and Animations:
+
+You can use route transitions and animations to improve the user experience.
+
+```jsx
+// pages/_app.js
+import { AnimatePresence, motion } from "framer-motion";
+
+function MyApp({ Component, pageProps, router }) {
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <motion.div
+        key={router.route}
+        initial="pageInitial"
+        animate="pageAnimate"
+        exit="pageExit"
+        variants={{
+          pageInitial: { opacity: 0 },
+          pageAnimate: { opacity: 1 },
+          pageExit: { opacity: 0 },
+        }}
+      >
+        <Component {...pageProps} />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+export default MyApp;
+```
+
+### 5. Using Client-Side Navigation:
+
+Next.js provides the `Link` component and `useRouter` for client-side navigation.
+
+```jsx
+// pages/index.js
+import Link from "next/link";
+
+function Home() {
+  return (
+    <div>
+      <h1>Welcome to Next.js!</h1>
+      <Link href="/about">Go to About</Link>
+    </div>
+  );
+}
+
+export default Home;
+```
+
+## Data Fetching and API Integration
+
+### 1. Fetching Data from APIs with SWR:
+
+**Basic Data Fetching:**
+
+SWR (Stale-While-Revalidate) is a popular data fetching library for Next.js. Here's an example of fetching and displaying data using SWR:
+
+```jsx
+import useSWR from "swr";
+
+function Posts() {
+  const { data, error } = useSWR("/api/posts", fetch);
+
+  if (error) return <div>Error loading data</div>;
+  if (!data) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {data.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Posts;
+```
+
+**Fetching with Pagination:**
+
+Using SWR to fetch paginated data and display it with "Load More" functionality:
+
+```jsx
+import useSWR, { useSWRPages } from "swr";
+
+function Posts() {
+  const getKey = (pageIndex) => `/api/posts?page=${pageIndex + 1}`;
+  const { pages, loadMore, isReachingEnd } = useSWRPages(
+    "posts",
+    getKey,
+    fetch
+  );
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.data.map((post) => (
+              <li key={post.id}>{post.title}</li>
+            ))}
+          </React.Fragment>
+        ))}
+      </ul>
+      <button onClick={loadMore} disabled={isReachingEnd}>
+        Load More
+      </button>
+    </div>
+  );
+}
+
+export default Posts;
+```
+
+**Handling Mutations (POST/PUT):**
+
+Using SWR to handle data mutations (e.g., creating or updating data):
+
+```jsx
+import useSWR, { mutate } from "swr";
+
+function CreatePostForm() {
+  const [title, setTitle] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await fetch("/api/posts", {
+      method: "POST",
+      body: JSON.stringify({ title }),
+    });
+
+    if (response.ok) {
+      mutate("/api/posts"); // Update cache
+      setTitle(""); // Clear input field
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <button type="submit">Create Post</button>
+    </form>
+  );
+}
+
+export default CreatePostForm;
+```
+
+### 2. Serverless Functions and API Routes:
+
+Next.js allows you to create serverless functions using API routes. Here's an example of creating an API route:
+
+```jsx
+// pages/api/posts.js
+export default function handler(req, res) {
+  const posts = [
+    { id: 1, title: "Post 1" },
+    { id: 2, title: "Post 2" },
+  ];
+
+  res.status(200).json(posts);
+}
+```
+
+You can then fetch data from this API route as shown in the previous example.
+
+### 3. Authentication and Authorization:
+
+Next.js can handle authentication and authorization by protecting routes. Here's an example using a higher-order component (HOC) for authentication:
+
+```jsx
+// components/AuthenticatedRoute.js
+import { useRouter } from 'next/router';
+
+function AuthenticatedRoute({ children }) {
+  const router = useRouter();
+  const isAuthenticated = /* Check if user is authenticated */;
+
+  if (!isAuthenticated) {
+    router.push('/login');
+    return null;
+  }
+
+  return children;
+}
+
+export default AuthenticatedRoute;
+```
+
+### 4. Caching and Revalidation Strategies:
+
+SWR provides caching and revalidation strategies out of the box. Here's an example of customizing caching and revalidation intervals:
+
+```jsx
+import useSWR from "swr";
+
+function Posts() {
+  const { data, error } = useSWR("/api/posts", fetch, {
+    refreshInterval: 5000,
+  });
+
+  // ...
+}
+```
+
+> In this example, data will be revalidated every 5 seconds.
